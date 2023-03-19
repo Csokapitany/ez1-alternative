@@ -138,3 +138,29 @@ document.getElementById("mutatGomb").addEventListener("click", function() {
             console.log('parsing failed: ', ex)
             });
             };
+
+//             // Az összes kártya kiválasztása
+// const cards = document.querySelectorAll('.card');
+
+// // Az összes gomb kiválasztása
+// const selectButtons = document.querySelectorAll('.select-button');
+
+// // Az összes gombra kattintva hívjuk meg a selectCard() függvényt
+// selectButtons.forEach(button => {
+//   button.addEventListener('click', selectCard);
+// });
+
+// // A kártya kiválasztása és átvitele egy másik oldalra
+// function selectCard(event) {
+//   // Az eseményt okozó gomb megtalálása
+//   const button = event.target;
+
+//   // Az gombhoz tartozó kártya megtalálása a DOM-ban
+//   const card = button.parentNode;
+
+//   // Az URL összeállítása az átirányításhoz
+//   const url = `https://www.example.com?cardId=${card.id}`;
+
+//   // Átirányítás a megadott URL-re
+//   window.location.href = url;
+// }
