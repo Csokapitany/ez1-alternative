@@ -31,10 +31,10 @@ function createKarakter(){
 }
 
 // ez mar nem is kell 
-// document.getElementById("betolt").addEventListener("click", createCard);
+ 
 
 // itt IIFE-t csinaltam a functionbol hogy ne kelljen a betolt gombbal hivni ennek erdemes utanannezni
-
+//onclick="dinamicNavigate(${karakter.id})"
 (function createCard() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `http://localhost:3000/karakter`, true);
@@ -46,8 +46,8 @@ function createKarakter(){
             karakter.forEach(function(karakter){ 
             output += `
                     <div class="col-md-6 col-lg-3">
-                        <div class="card bg-success">
-                            <div id="Load${karakter.id}" onclick="dinamicNavigate(${karakter.id})" class="btn-lg">
+                        <div class="card bg-primary ">
+                            <div id="Load${karakter.id}"  class="btn-lg kiJelol">
                                 <div class="card-body text-center text-dark">
                                     <li> Nev: ${karakter.charName}</li>
                                     <li> Kaszt: ${karakter.charCast}</li>
@@ -70,36 +70,37 @@ function createKarakter(){
         }
     }
     xhr.send();
-})();
+    
 
 
 
-// ez navigal at a fight oldalra dinamikus query parameterrel
-function dinamicNavigate(id){
-    console.log(id);
-    window.location.href = `fight.html?id=${id}`;
-}
+
+
+
+
+
 
 //ezek a karakterek az igazi APIrol jonnek 
 (function getCharacters(){
     fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
         .then( response => response.json() )
         .then((data) => {
-            console.log(data)
+           //console.log(data)
             
             data.forEach(element => {
                 let div = document.createElement('div');
     
                 div.innerHTML = (`     
-                    <div class="card text-center text-dark bg-success p-3 d-flex justify-content-center">
+                    <div class="card text-center text-dark bg-primary p-3 d-flex justify-content-center kiJelol">
                         <div class="m-2">                                           
                             <img class="avatar" src="./img/armor.jpg">
                         </div>  
-                        <h3>${element.name}</h3>                                                             
+                        <h3>${element.name}</h3>  
+                                                                                   
+                        <p>Id: <span>${element.id}</span></p>                                                             
                         <p>Damage: <span>${element.damage}</span></p>                                                             
                         <p>HitPoints: <span>${element.hitPoints}</span></p>                                                             
-                        <p>Armor: <span>${element.armor}</span></p>  
-                        <button class="select-button">Select</button>                                                                                                                                    
+                        <p>Armor: <span>${element.armor}</span></p>                                                                                                                                     
                     </div>
                 `);
         
@@ -110,39 +111,67 @@ function dinamicNavigate(id){
                 posts.appendChild(div);        
             });
 
-    });   
+const productCards = document.querySelectorAll('.kiJelol');
+//console.log (productCards);
 
-  
-// Az összes kártya kiválasztása
-const cards = document.getElementById('cardid');
+// Add event listener to each card
+productCards.forEach(kiJelol => {
+    kiJelol.addEventListener('click', () => {
+    // Remove selected class from all cards
+    productCards.forEach(kiJelol => {
+       
+        kiJelol.classList.remove('kiJelol');
+    });
 
-// Az összes gomb kiválasztása
-const selectButtons = document.querySelectorAll('.select-button');
+    // Add selected class to clicked card
+    kiJelol.classList.add('bg-success');
+    kiJelol.classList.add('kiValaszt1');
+    let group1 = document.querySelectorAll('kiValaszt1');
+    group1.id = `group1`;
+ 
+ 
+ console.log(group1);
+    
+  });
+  // itt jeloli ki a 2 es groupot ad nekik id-2 amit lehet hivni
+  kiJelol.addEventListener('contextmenu', () => {
+    
+    productCards.forEach(kiJelol => {
+       
+    kiJelol.classList.remove('kiJelol');
+    });
 
-// Az összes gombra kattintva hívjuk meg a selectCard() függvényt
-selectButtons.forEach(button => {
-  button.addEventListener('click', selectCard);
-});
+    kiJelol.classList.add('bg-warning');
+    kiJelol.classList.add('kiValaszt2');
+    
+    let group2 = document.querySelectorAll('kiValaszt2');
+    group2.id = `group2`;
+    console.log(group2);
+  });
+  });
+});   
+})();
 
-// A kártya kiválasztása és átvitele egy másik oldalra
-function selectCard(event) {
-  // Az eseményt okozó gomb megtalálása
-  const button = event.target;
+  // Add event listener to disable right-click menu
+document.addEventListener('contextmenu', event => {
+    event.preventDefault();
 
-  // Az gombhoz tartozó kártya megtalálása a DOM-ban
-  const card = button.parentNode;
 
-  // Az URL összeállítása az átirányításhoz
-  const url = `fight.html?id=${id}`;
+    
+ });
+ 
+ 
+// ez navigal at a fight oldalra dinamikus query parameterrel
 
-  // Átirányítás a megadott URL-re
-  window.location.href = url;
+})();
+ 
+
+document.getElementById("betolt").addEventListener("click", dinamicNavigate);
+function dinamicNavigate(){
+    window.location.href = `fight.html?id=group1`;
+   
 }
 
 
-
-
-
-})();
-
-  
+ 
+ 

@@ -2,14 +2,16 @@
 const params = new URLSearchParams(window.location.search);
 
 //ez szopja ki az erteket az url queryparameterebeol  pl (/fight.html?id=4)
-const dynamicId = params.get('id');
+const dynamicId1 = params.get('group1');
 
 // Use the dynamic id to generate content on the page
-document.getElementById('dynamic-content').innerHTML = `This is content for id ${dynamicId}.`;
+document.getElementById('dynamic-content1').innerHTML = `This is content for id ${dynamicId1}.`;
+//document.getElementById('dynamic-content2').innerHTML = `This is content for id ${dynamicId}.`;
 
 // define a function to get the posts with a fetch
 function getPosts(){
-    fetch(`http://localhost:3000/karakter/${dynamicId}`)
+    //fetch(`http://localhost:3000/karakter/${dynamicId}`)
+    fetch(`https://practicefullstackapp.azurewebsites.net/characters/`)
         .then( response => response.json() )
         .then((data) => {
             console.log(data)
