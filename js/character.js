@@ -85,7 +85,7 @@ function createKarakter(){
     fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
         .then( response => response.json() )
         .then((data) => {
-           //console.log(data)
+           console.log(data)
             
             data.forEach(element => {
                 let div = document.createElement('div');
@@ -93,14 +93,19 @@ function createKarakter(){
                 div.innerHTML = (`     
                     <div class="card text-center text-dark bg-primary p-3 d-flex justify-content-center kiJelol">
                         <div class="m-2">                                           
-                            <img class="avatar" src="./img/armor.jpg">
+                            <img class="avatar" src="${element.image}">
                         </div>  
-                        <h3>${element.name}</h3>  
-                                                                                   
-                        <p>Id: <span>${element.id}</span></p>                                                             
-                        <p>Damage: <span>${element.damage}</span></p>                                                             
-                        <p>HitPoints: <span>${element.hitPoints}</span></p>                                                             
-                        <p>Armor: <span>${element.armor}</span></p>                                                                                                                                     
+                        <h3>${element.name}</h3>                         
+                        <p> Kaszt: ${element.class}</p>
+                        <p> Szint: ${element.level}</p>
+                        <p> KE: ${element.ke}</p>
+                        <p> TE: ${element.te}</p>
+                        <p> VE: ${element.ve}</p>
+                        <p> FP: ${element.fp}</p>
+                        <p> EP: ${element.ep}</p>
+                        <p> SFE: ${element.sfe}</p>
+                        <p> SPJ: ${element.spj}</p>
+                        <p> SPB: ${element.spb}</p>                                                                                                                                    
                     </div>
                 `);
         
@@ -168,7 +173,7 @@ document.addEventListener('contextmenu', event => {
 
 document.getElementById("betolt").addEventListener("click", dinamicNavigate);
 function dinamicNavigate(){
-    window.location.href = `fight.html?id=group1`;
+    window.location.href = `fight.html?id1=group1`;
    
 }
 
