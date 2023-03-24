@@ -95,9 +95,9 @@ function createKarakter(){
                         <div class="m-2">                                           
                             <img class="avatar" src="${element.image}">
                         </div>  
-                        <h3>${element.name}</h3>                         
-                        <p> Kaszt: ${element.class}</p>
-                        <p> Szint: ${element.level}</p>
+                        <h2>${element.name}</h2>                         
+                        <h4> ${element.class}</h4p>
+                        <h4> Szint: ${element.level}</h4>
                         <p> KE: ${element.ke}</p>
                         <p> TE: ${element.te}</p>
                         <p> VE: ${element.ve}</p>
