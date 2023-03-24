@@ -15,7 +15,7 @@ function getPosts(id, position){
     fetch(`https://practicefullstackapp.azurewebsites.net/characters/${id}`)
         .then( response => response.json() )
         .then((data) => {
-            console.log(data)
+            // console.log(data)
         
             let div = document.createElement('div');
 
@@ -48,3 +48,6 @@ function getPosts(id, position){
 getPosts(dynamicId1, 1);
 getPosts(dynamicId2, 2);
      
+function battle(){
+    console.log("anyad");
+}
