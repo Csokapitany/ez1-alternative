@@ -35,41 +35,41 @@ function createKarakter(){
 
 // itt IIFE-t csinaltam a functionbol hogy ne kelljen a betolt gombbal hivni ennek erdemes utanannezni
 //onclick="dinamicNavigate(${karakter.id})"
-(function createCard() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:3000/karakter`, true);
+// (function createCard() {
+    // const xhr = new XMLHttpRequest();
+    // xhr.open("GET", `http://localhost:3000/karakter`, true);
     
-    xhr.onload = function() {
-        if(this.status === 200){
-            const karakter = JSON.parse(this.responseText);
-            let output = '';
-            karakter.forEach(function(karakter){ 
-            output += `
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card bg-primary ">
-                            <div id="Load${karakter.id}"  class="btn-lg kiJelol">
-                                <div class="card-body text-center text-dark">
-                                    <li> Nev: ${karakter.charName}</li>
-                                    <li> Kaszt: ${karakter.charCast}</li>
-                                    <li> Szint: ${karakter.charLevel}</li>
-                                    <li> KE: ${karakter.charKE}</li>
-                                    <li> TE: ${karakter.charTE}</li>
-                                    <li> VE: ${karakter.charVE}</li>
-                                    <li> FP: ${karakter.charFP}</li>
-                                    <li> EP: ${karakter.charEP}</li>
-                                    <li> SFE: ${karakter.charSFE}</li>
-                                    <li> SPJ: ${karakter.charSPJ}</li>
-                                    <li> SPB: ${karakter.charSPB}</li>                                                               
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                `; 
-            });
-            document.getElementById("cardsPlace").innerHTML=output;
-        }
-    }
-    xhr.send();
+    // xhr.onload = function() {
+    //     if(this.status === 200){
+    //         const karakter = JSON.parse(this.responseText);
+    //         let output = '';
+    //         karakter.forEach(function(karakter){ 
+    //         output += `
+    //                 <div class="col-md-6 col-lg-3">
+    //                     <div class="card bg-primary ">
+    //                         <div id="Load${karakter.id}"  class="btn-lg kiJelol">
+    //                             <div class="card-body text-center text-dark">
+    //                                 <li> Nev: ${karakter.charName}</li>
+    //                                 <li> Kaszt: ${karakter.charCast}</li>
+    //                                 <li> Szint: ${karakter.charLevel}</li>
+    //                                 <li> KE: ${karakter.charKE}</li>
+    //                                 <li> TE: ${karakter.charTE}</li>
+    //                                 <li> VE: ${karakter.charVE}</li>
+    //                                 <li> FP: ${karakter.charFP}</li>
+    //                                 <li> EP: ${karakter.charEP}</li>
+    //                                 <li> SFE: ${karakter.charSFE}</li>
+    //                                 <li> SPJ: ${karakter.charSPJ}</li>
+    //                                 <li> SPB: ${karakter.charSPB}</li>                                                               
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>    
+    //             `; 
+    //         });
+    //         document.getElementById("cardsPlace").innerHTML=output;
+    //     }
+    // }
+    // xhr.send();
     
 
 
@@ -91,7 +91,7 @@ function createKarakter(){
                 let div = document.createElement('div');
     
                 div.innerHTML = (`     
-                    <div class="card text-center text-dark bg-primary p-3 d-flex justify-content-center kiJelol">
+                    <div class="card text-center text-dark p-3 d-flex justify-content-center kiJelol" onclick="valami(${element.id})" id="${element.id}" ">
                         <div class="m-2">                                           
                             <img class="avatar" src="${element.image}">
                         </div>  
@@ -112,70 +112,86 @@ function createKarakter(){
                 div.classList.add("col-lg-3");        
         
                 let posts = document.getElementById('characters');
-        
+                
                 posts.appendChild(div);        
-            });
-
-const productCards = document.querySelectorAll('.kiJelol');
-//console.log (productCards);
-
-// Add event listener to each card
-productCards.forEach(kiJelol => {
-    kiJelol.addEventListener('click', () => {
-    // Remove selected class from all cards
-    productCards.forEach(kiJelol => {
-       
-        kiJelol.classList.remove('kiJelol');
-    });
-
-    // Add selected class to clicked card
-    kiJelol.classList.add('bg-success');
-    kiJelol.classList.add('kiValaszt1');
-    let group1 = document.querySelectorAll('kiValaszt1');
-    group1.id = `group1`;
- 
- 
- console.log(group1);
-    
-  });
-  // itt jeloli ki a 2 es groupot ad nekik id-2 amit lehet hivni
-  kiJelol.addEventListener('contextmenu', () => {
-    
-    productCards.forEach(kiJelol => {
-       
-    kiJelol.classList.remove('kiJelol');
-    });
-
-    kiJelol.classList.add('bg-warning');
-    kiJelol.classList.add('kiValaszt2');
-    
-    let group2 = document.querySelectorAll('kiValaszt2');
-    group2.id = `group2`;
-    console.log(group2);
-  });
-  });
-});   
+        })
+    })
 })();
 
-  // Add event listener to disable right-click menu
-document.addEventListener('contextmenu', event => {
-    event.preventDefault();
+var cardsToFight = [];
 
-
+function valami(id){
+    console.log(id);
     
- });
- 
- 
-// ez navigal at a fight oldalra dinamikus query parameterrel
+    var card = document.getElementById(`${id}`);
+    
+    card.classList.toggle("bg-success");
+    
+    if(cardsToFight.includes(id)){
+        cardsToFight.pop(id);
+    } else {
+        cardsToFight.push(id);
+    }
 
-})();
- 
-
+    console.log(cardsToFight);
+}
+            
 document.getElementById("betolt").addEventListener("click", dinamicNavigate);
 function dinamicNavigate(){
-    window.location.href = `fight.html?id1=group1`;
+    window.location.href = `fight.html?id1=${cardsToFight[0]}&id2=${cardsToFight[1]}`;
    
 }
+
+
+
+
+
+
+
+
+
+//      productCards.forEach(kiJelol => {
+//         kiJelol.addEventListener('click', () => {
+//         productCards.forEach(kiJelol => {
+//            kiJelol.classList.remove('kiJelol');
+//     });
+    
+//     kiJelol.classList.add('bg-success');
+//     kiJelol.classList.add('kiValaszt1');
+//     let group1 = document.querySelectorAll('kiValaszt1');
+//     group1.id = `group1`;
+    
+    
+//     console.log(group1);
+   
+// });
+// // itt jeloli ki a 2 es groupot ad nekik id-2 amit lehet hivni
+// kiJelol.addEventListener('contextmenu', () => {
+    
+//     productCards.forEach(kiJelol => {
+        
+//         kiJelol.classList.remove('kiJelol');
+//     });
+    
+//     kiJelol.classList.add('bg-warning');
+//     kiJelol.classList.add('kiValaszt2');
+    
+//     let group2 = document.querySelectorAll('kiValaszt2');
+//     group2.id = `group2`;
+//     console.log(group2);
+// });
+// });
+// });   
+
+// // Add event listener to disable right-click menu
+// document.addEventListener('contextmenu', event => {
+//     event.preventDefault();  
+//  });
+ 
+ 
+
+ 
+
 
 
  
