@@ -35,16 +35,16 @@ function createKarakter(){
 
 // itt IIFE-t csinaltam a functionbol hogy ne kelljen a betolt gombbal hivni ennek erdemes utanannezni
 //onclick="dinamicNavigate(${karakter.id})"
-(function createCard() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:3000/karakter`, true);
+(function createCard() 
+    { const xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:3000/karakter`, true);
     
-    xhr.onload = function() {
-        if(this.status === 200){
-            const karakter = JSON.parse(this.responseText);
-            let output = '';
-            karakter.forEach(function(karakter){ 
-            output += `
+        xhr.onload = function() 
+        {            if(this.status === 200)
+            {   const karakter = JSON.parse(this.responseText);
+             let output = '';
+             karakter.forEach(function(karakter)
+             { output += `
                     <div class="col-md-6 col-lg-3">
                         <div class="card bg-primary ">
                             <div id="Load${karakter.id}"  class="btn-lg kiJelol">
@@ -65,112 +65,111 @@ function createKarakter(){
                         </div>
                     </div>    
                 `; 
-            });
-            document.getElementById("cardsPlace").innerHTML=output;
+             });
+                 document.getElementById("cardsPlace").innerHTML=output;
+            }
         }
-    }
-    xhr.send();
+        xhr.send();
+    });
     
-
-
-
-
-
-
-
-
 
 //ezek a karakterek az igazi APIrol jonnek 
-(function getCharacters(){
-    fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
+(function getCharacters()
+    {    fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
         .then( response => response.json() )
-        .then((data) => {
-           //console.log(data)
+        .then((data) => 
+        { //console.log(data)
+            data.forEach(element => 
+                { let div = document.createElement('div');
+                    div.innerHTML = 
+                    (`  <div class="card text-center text-dark bg-primary 
+                                    p-3 d-flex justify-content-center 
+                                    kiJelol"
+                                    id="${element.id}">
+                            <div class="m-2">                                           
+                                <img class="avatar" src="${element.image}">
+                            </div>  
+                            <h3>${element.name}</h3>    
+                            <h3 class="varID" id="${element.id}">${element.id}</h3>                                                                                                       
+                            <p>Damage: <span>${element.damage}</span></p>                                                             
+                            <p>HitPoints: <span>${element.hitPoints}</span></p>                                                             
+                            <p>Armor: <span>${element.armor}</span></p>                                                                                                                                     
+                        </div>          `);
+        
+                    div.classList.add("col-lg-3");        
+                    let posts = document.getElementById('characters');
+                    posts.appendChild(div);
+                    // group1 = document.getElementsByClassName("varID"); 
+                    // console.log(group1)
+                });
+        }) // itt kell megmokolni h ogy az element id ja a ramenjen a kartyarol
+        //mert lejjebb nem eszi meg az id-t mar
+        .then(() =>
+            { const productCards = document.querySelectorAll('.kiJelol');
+                //console.log (productCards);
+           
+                productCards.forEach(kiJelol => 
+                {  kiJelol.addEventListener("mousedown", function(event) 
+                    {
+                    if (event.button === 0) {
+                        // Left click function here
+                        kiJelol.classList.remove('kiJelol')
+                        kiJelol.classList.remove('bg-warning')
+                        kiJelol.classList.add('bg-success')
+                        var groupTransfer1 = kiJelol.id 
+
+                        
+                        console.log(groupTransfer1);
+
+                    } else if (event.button === 2) {
+                        // Right click function here
+                        kiJelol.classList.add('kiJelol')
+                        kiJelol.classList.remove('bg-success')
+                        kiJelol.classList.add('bg-warning')
+                        var groupTransfer2 = kiJelol.id 
+                        
+
+                       console.log(groupTransfer2);
+                    } 
+                    else if (event.button === 1) {
+                        // Right click function here
+                        kiJelol.classList.add('kiJelol')
+                        kiJelol.classList.remove('bg-success')
+                        kiJelol.classList.remove('bg-warning')
+                       // console.log("Alapbeallitas");
+                    } 
+
+                        document.getElementById("betolt").addEventListener("click",
+                            function dinamicNavigate()
+                            { 
+                              
+                             window.location.href = `fight.html?id=groupTransfer1`
+                             //window.location.href = `fight.html?id2=groupTransfer2`
+                            
+                            
+                        })                
+
+
+                    });
+
+                    
+                });
+
+               
+            })
+        // .then(() =>
+        // {
             
-            data.forEach(element => {
-                let div = document.createElement('div');
-    
-                div.innerHTML = (`     
-                    <div class="card text-center text-dark bg-primary p-3 d-flex justify-content-center kiJelol">
-                        <div class="m-2">                                           
-                            <img class="avatar" src="./img/armor.jpg">
-                        </div>  
-                        <h3>${element.name}</h3>  
-                                                                                   
-                        <p>Id: <span>${element.id}</span></p>                                                             
-                        <p>Damage: <span>${element.damage}</span></p>                                                             
-                        <p>HitPoints: <span>${element.hitPoints}</span></p>                                                             
-                        <p>Armor: <span>${element.armor}</span></p>                                                                                                                                     
-                    </div>
-                `);
-        
-                div.classList.add("col-lg-3");        
-        
-                let posts = document.getElementById('characters');
-        
-                posts.appendChild(div);        
-            });
+        // })
 
-const productCards = document.querySelectorAll('.kiJelol');
-//console.log (productCards);
 
-// Add event listener to each card
-productCards.forEach(kiJelol => {
-    kiJelol.addEventListener('click', () => {
-    // Remove selected class from all cards
-    productCards.forEach(kiJelol => {
-       
-        kiJelol.classList.remove('kiJelol');
-    });
-
-    // Add selected class to clicked card
-    kiJelol.classList.add('bg-success');
-    kiJelol.classList.add('kiValaszt1');
-    let group1 = document.querySelectorAll('kiValaszt1');
-    group1.id = `group1`;
- 
- 
- console.log(group1);
-    
-  });
-  // itt jeloli ki a 2 es groupot ad nekik id-2 amit lehet hivni
-  kiJelol.addEventListener('contextmenu', () => {
-    
-    productCards.forEach(kiJelol => {
-       
-    kiJelol.classList.remove('kiJelol');
-    });
-
-    kiJelol.classList.add('bg-warning');
-    kiJelol.classList.add('kiValaszt2');
-    
-    let group2 = document.querySelectorAll('kiValaszt2');
-    group2.id = `group2`;
-    console.log(group2);
-  });
-  });
-});   
 })();
 
   // Add event listener to disable right-click menu
 document.addEventListener('contextmenu', event => {
     event.preventDefault();
-
-
     
  });
- 
- 
-// ez navigal at a fight oldalra dinamikus query parameterrel
-
-})();
- 
-
-document.getElementById("betolt").addEventListener("click", dinamicNavigate);
-function dinamicNavigate(){
-    window.location.href = `fight.html?id=group1`;
-   
-}
 
 
  

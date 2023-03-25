@@ -2,10 +2,10 @@
 const params = new URLSearchParams(window.location.search);
 
 //ez szopja ki az erteket az url queryparameterebeol  pl (/fight.html?id=4)
-const dynamicId1 = params.get('group1');
-
+const dynamicId1 = params.get(`groupTransfer1`);
+console.log(dynamicId1)
 // Use the dynamic id to generate content on the page
-document.getElementById('dynamic-content1').innerHTML = `This is content for id ${dynamicId1}.`;
+//document.getElementById('dynamic-content1').innerHTML = `${id}`;
 //document.getElementById('dynamic-content2').innerHTML = `This is content for id ${dynamicId}.`;
 
 // define a function to get the posts with a fetch
@@ -45,4 +45,5 @@ function getPosts(){
 
 // Invoke the function
 getPosts();
-     
+
+
