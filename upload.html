@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="./css/style.css">
+    <title>Upload</title>
+</head>
+<body class="bg-black">
+    <nav class="navbar navbar-expand-lg bg-secondary navbar-dark bg-clip-padding">
+        <div class="container">
+            <a href="index.html" class="navbar-brand p-3">Upload</a>
+                <button class="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navmenu">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+
+             <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                   <li class="nav-link">
+                    <a href="index.html" class="nav-link">Dobasok</a>
+                   </li>     
+                   <li class="nav-link">
+                   <a href="character.html" class="nav-link" >Karaktervalaszto</a>
+                   </li>
+                   <!-- <li class="nav-link">
+                    <a href="fight.html" class="nav-link" >Csata</a>
+                    </li>        -->
+	            </ul>
+            </div>
+        </div>
+    </nav>
+       
+    
+    <div  class="container bg-secondary">			       
+        <div class="row m-3 p-3 d-flex justify-content-center" id="characters">             
+            <div class="card col-md-6 col-lg-4">
+                <h3 class="text-center my-3">Create and Upload Your character!</h3>
+                <div class="card-body text-center">
+                    <form id="form" action="submit" class="p-2"></form>
+                        <div id="feltolto" class="">
+                            <input type="text" id='name' class="input-group-text form-control my-1" placeholder="Nev:">
+                            <input type="text" id='class' class="input-group-text form-control my-1" placeholder="Kaszt:">                                                              
+                            <input type="text" id='image' class="input-group-text form-control my-1" placeholder="Avatar:">                                                              
+                            <input type="number" id="level" class="input-group-text form-control my-1" placeholder="Szint:">
+                            <input type="number" id="KE" class="input-group-text form-control my-1" placeholder="KE ertek:">
+                            <input type="number" id="TE" class="input-group-text form-control my-1" placeholder="TE ertek:">
+                            <input type="number" id="VE" class="input-group-text form-control my-1" placeholder="VE ertek:">
+                            <input type="number" id="FP" class="input-group-text form-control my-1" placeholder="FP ertek:">
+                            <input type="number" id="EP" class="input-group-text form-control my-1" placeholder="EP ertek:">
+                            <input type="number" id="SFE" class="input-group-text form-control my-1" placeholder="SFE ertek:">
+                            <input type="number" id="SPJ" class="input-group-text form-control my-1" placeholder="SPJ modosito:">
+                            <input type="number" id="SPB" class="input-group-text form-control my-1" placeholder="SPB modosito:">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" type="button" onclick="upload()">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>                
+
+
+<!-- <script type="module" src="characterR.js"></script> -->
+<script src="./js/upload.js"></script>
+</body>
+</html>
