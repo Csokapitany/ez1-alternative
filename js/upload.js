@@ -1,11 +1,12 @@
-(() => {
-    console.log('upload');
-})();
+// (() => {
+//     console.log('upload');
+// })();
 
 class Character {
     constructor(charName, charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb){
-        this.charName = charName,
-        this.charClass = charClass,
+        this.id = 0
+        this.name = charName,
+        this.class = charClass,
         this.image = image,
         this.level = level,
         this.ke = ke,
@@ -34,22 +35,26 @@ function upload(){
     var spb = parseInt(document.getElementById('SPB').value);
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
-    // console.log(character);
+    // console.log(JSON.stringify(character));
 
     // kibaszott CORS error termeszetesen
 
     fetch('https://practicefullstackapp.azurewebsites.net/characters', {
-        method: 'post',
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            'Accept': 'application/json',
+            'Content-Type':'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'accept': '*/*'
           },
-        mode: "cors",
-        body: JSON.stringify(character)
+        // mode: 'no-cors',
+        body: JSON.stringify( character )
     }).then(function(response) {
-        return response.json();
+        console.log(response);
     }).then(function(data) {
         console.log(data);
+    }).catch(error => {
+        console.error(error)
     });
 }
 
