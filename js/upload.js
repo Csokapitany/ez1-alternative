@@ -35,8 +35,8 @@ function upload(){
     var spb = parseInt(document.getElementById('SPB').value);
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
-    // console.log(JSON.stringify(character));
-
+    
+    
     // kibaszott CORS error termeszetesen
 
     fetch('https://practicefullstackapp.azurewebsites.net/characters', {
@@ -47,12 +47,11 @@ function upload(){
             'Access-Control-Allow-Origin': '*',
             'accept': '*/*'
           },
-        // mode: 'no-cors',
         body: JSON.stringify( character )
     }).then(function(response) {
-        console.log(response);
-    }).then(function(data) {
-        console.log(data);
+        if(response.status == 200){
+            alert("Character upload successful!");
+        }
     }).catch(error => {
         console.error(error)
     });

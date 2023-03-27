@@ -116,7 +116,7 @@ document.getElementById("mutatGomb").addEventListener("click", function() {
 
         }
 
-        document.getElementById("feltoltGomb").addEventListener("click", karakterFeltoltes);
+        // document.getElementById("feltoltGomb").addEventListener("click", karakterFeltoltes);
         
         function karakterFeltoltes(){
         createKarakter()

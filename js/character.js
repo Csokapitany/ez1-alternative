@@ -1,39 +1,27 @@
+// for the upload bit
 
-// //feltolto resz  Ez megy csak a szamokat stringbe viszi be
-// let newCharacter = {
-//     "charName": "",
-//     "charCast": "",
-//     "charLevel": 0,
-//     "charKE": 0,
-//     "charTE": 0,
-//     "charVE": 0,
-//     "charFP": 0,
-//     "charEP": 0,
-//     "charSFE": 0,
-//     "charSPJ": 0,
-//     "charSPB": 0,
-// }
+getCharacters();
 
-// function createKarakter(){
-//     newCharacter.charName = document.getElementById("charName").value
-//     newCharacter.charCast = document.getElementById("charCast").value
-//     newCharacter.charLevel = document.getElementById("charLevel").value
-//     newCharacter.charKE = document.getElementById("charKE").value
-//     newCharacter.charTE = document.getElementById("charTE").value
-//     newCharacter.charVE = document.getElementById("charVE").value
-//     newCharacter.charFP = document.getElementById("charFP").value
-//     newCharacter.charEP = document.getElementById("charEP").value
-//     newCharacter.charSFE = document.getElementById("charSFE").value
-//     newCharacter.charSPJ = document.getElementById("charSPJ").value
-//     newCharacter.charSPB = document.getElementById("charSPB").value
+class Character {
+    constructor(charName, charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb){
+        this.id = 0
+        this.name = charName,
+        this.class = charClass,
+        this.image = image,
+        this.level = level,
+        this.ke = ke,
+        this.te = te,
+        this.ve = ve,
+        this.fp = fp,
+        this.ep = ep,
+        this.sfe = sfe,
+        this.spj = spj,
+        this.spb = spb
+    }   
+}
 
-//     console.log(newCharacter)
-// }
-
-
-
-//ezek a karakterek az igazi APIrol jonnek 
-(function getCharacters(){
+//to get data from API 
+function getCharacters(){
     fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
         .then( response => response.json() )
         .then((data) => {
@@ -42,22 +30,28 @@
             data.forEach(element => {
                 let div = document.createElement('div');
     
-                div.innerHTML = (`     
-                    <div class="card text-center text-dark p-3 d-flex justify-content-center kiJelol" onclick="select(${element.id})" id="${element.id}" ">
-                        <div class="m-2">                                           
-                            <img class="avatar" src="${element.image}">
-                        </div>  
-                        <h2>${element.name}</h2>                         
-                        <h4> ${element.class}</h4p>
-                        <h4> Szint: ${element.level}</h4>
-                        <p> KE: ${element.ke}</p>
-                        <p> TE: ${element.te}</p>
-                        <p> VE: ${element.ve}</p>
-                        <p> FP: ${element.fp}</p>
-                        <p> EP: ${element.ep}</p>
-                        <p> SFE: ${element.sfe}</p>
-                        <p> SPJ: ${element.spj}</p>
-                        <p> SPB: ${element.spb}</p>                                                                                                                                    
+                div.innerHTML = (`
+                    <div> 
+                        <div class="card text-center text-dark p-3 d-flex justify-content-center rounded-bottom-0 border border-dark border-3 border-bottom-0" onclick="select(${element.id})" id="${element.id}" ">
+                            <div class="m-2">                                           
+                                <img class="avatar" src="${element.image}">
+                            </div>  
+                            <h2>${element.name}</h2>                         
+                            <h4> ${element.class}</h4p>
+                            <h4> Level: ${element.level}</h4>
+                            <p> KE: ${element.ke}</p>
+                            <p> TE: ${element.te}</p>
+                            <p> VE: ${element.ve}</p>
+                            <p> FP: ${element.fp}</p>
+                            <p> EP: ${element.ep}</p>
+                            <p> SFE: ${element.sfe}</p>
+                            <p> SPJ: ${element.spj}</p>
+                            <p> SPB: ${element.spb}</p>                                                                                                                                    
+                            </div>
+                            <button class="btn btn-danger col-12 rounded-top-0 border border-dark border-3 border-top-0" onclick=deleteCharacter(${element.id})>
+                                <i class="bi-trash3" style="color: white; "></i>
+                                Delete
+                            </button>
                     </div>
                 `);
         
@@ -68,12 +62,60 @@
                 posts.appendChild(div);        
         })
     })
-})();
+};
+
+
+function upload(){
+    var charName = document.getElementById('name').value;
+    var charClass = document.getElementById('class').value;
+    var image = document.getElementById('image').value;
+    var level = parseInt(document.getElementById('level').value);
+    var ke = parseInt(document.getElementById('KE').value);
+    var te = parseInt(document.getElementById('TE').value);
+    var ve = parseInt(document.getElementById('VE').value);
+    var fp = parseInt(document.getElementById('FP').value);
+    var ep = parseInt(document.getElementById('EP').value);
+    var sfe = parseInt(document.getElementById('SFE').value);
+    var spj = parseInt(document.getElementById('SPJ').value);
+    var spb = parseInt(document.getElementById('SPB').value);
+
+    var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
+    
+    
+    // kibaszott CORS error termeszetesen
+
+    fetch('https://practicefullstackapp.azurewebsites.net/characters', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type':'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'accept': '*/*'
+          },
+        body: JSON.stringify( character )
+    }).then(function(response) {
+        if(response.status == 200){
+            alert("Character upload successful!");
+        }
+    }).catch(error => {
+        console.error(error)
+    });
+
+    var myModalEl = document.getElementById('exampleModal1');
+    var modal = bootstrap.Modal.getInstance(myModalEl)
+    modal.hide();  
+
+    clearCharacters();
+    getCharacters();
+}
+
+
+
 
 var cardsToFight = [];
 
 function select(id){
-    console.log(id);
+    // console.log(id);
     
     var card = document.getElementById(`${id}`);
     
@@ -85,9 +127,39 @@ function select(id){
         cardsToFight.push(id);
     }
 
-    console.log(cardsToFight);
+    // console.log(cardsToFight);
 }
             
+function deleteCharacter(id){
+    console.log(id)
+
+    fetch(`https://practicefullstackapp.azurewebsites.net/characters/${id}`, {
+        method: 'DELETE',
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type':'application/json; charset=utf-8',
+        //     'Access-Control-Allow-Origin': '*',
+        //     'accept': '*/*'
+        //   },
+        // body: JSON.stringify( character )
+    }).then((response) => {
+        if(response.status == 200){
+            alert("Character deleted!");
+        }
+    }).catch((error) => {
+        console.error(error)
+    });
+
+    clearCharacters();
+    getCharacters();
+}
+
+function clearCharacters(){
+    var characters = document.getElementById('characters');
+    characters.innerHTML = "";
+}
+
+// to transfer selected cards to battle
 document.getElementById("betolt").addEventListener("click", dinamicNavigate);
 function dinamicNavigate(){
     window.location.href = `fight.html?id1=${cardsToFight[0]}&id2=${cardsToFight[1]}`;
@@ -95,51 +167,6 @@ function dinamicNavigate(){
 }
 
 
-
-
-
-
-
-
-
-//      productCards.forEach(kiJelol => {
-//         kiJelol.addEventListener('click', () => {
-//         productCards.forEach(kiJelol => {
-//            kiJelol.classList.remove('kiJelol');
-//     });
-    
-//     kiJelol.classList.add('bg-success');
-//     kiJelol.classList.add('kiValaszt1');
-//     let group1 = document.querySelectorAll('kiValaszt1');
-//     group1.id = `group1`;
-    
-    
-//     console.log(group1);
-   
-// });
-// // itt jeloli ki a 2 es groupot ad nekik id-2 amit lehet hivni
-// kiJelol.addEventListener('contextmenu', () => {
-    
-//     productCards.forEach(kiJelol => {
-        
-//         kiJelol.classList.remove('kiJelol');
-//     });
-    
-//     kiJelol.classList.add('bg-warning');
-//     kiJelol.classList.add('kiValaszt2');
-    
-//     let group2 = document.querySelectorAll('kiValaszt2');
-//     group2.id = `group2`;
-//     console.log(group2);
-// });
-// });
-// });   
-
-// // Add event listener to disable right-click menu
-// document.addEventListener('contextmenu', event => {
-//     event.preventDefault();  
-//  });
- 
  
 
  

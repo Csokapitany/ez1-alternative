@@ -13,7 +13,7 @@
 <body class="bg-black">
     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark bg-clip-padding">
         <div class="container">
-            <a href="index.html" class="navbar-brand p-3">Karakter Lista</a>
+            <a href="index.html" class="navbar-brand p-3">Home</a>
                 <button class="navbar-toggler" 
                         type="button" 
                         data-bs-toggle="collapse" 
@@ -23,12 +23,12 @@
 
              <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
-                   <li class="nav-link">
+                   <!-- <li class="nav-link">
                     <a href="index.html" class="nav-link">Dobasok</a>
-                   </li>     
-                   <li class="nav-link">
+                   </li>      -->
+                   <!-- <li class="nav-link">
                     <a href="upload.html" class="nav-link" >Feltolt</a>
-                    </li> 
+                    </li>  -->
                    <!-- <li class="nav-link">
                     <a href="fight.html" class="nav-link" >Csata</a>
                     </li>        -->
@@ -37,9 +37,50 @@
         </div>
     </nav>
        
-    <div  class="container bg-secondary">			       
-        <div class="row g-4 p-3 m-2" id="characters">             
-            <button id="betolt" class="justify-content-center p-2 g-2 btn btn-danger">To Battle!! </button>
+    <div class="modal fade" id="exampleModal1" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Character</h5>
+              <button type="button" class="btn btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="feltolto" class="">
+                    <input type="text" id='name' class="form-control my-1" placeholder="Name:">
+                    <input type="text" id='class' class="form-control my-1" placeholder="Class:">                                                              
+                    <input type="text" id='image' class="form-control my-1" placeholder="Avatar:">                                                              
+                    <input type="number" id="level" class="form-control my-1" placeholder="Level:">
+                    <input type="number" id="KE" class="form-control my-1" placeholder="KE value:">
+                    <input type="number" id="TE" class="form-control my-1" placeholder="TE value:">
+                    <input type="number" id="VE" class="form-control my-1" placeholder="VE value:">
+                    <input type="number" id="FP" class="form-control my-1" placeholder="FP value:">
+                    <input type="number" id="EP" class="form-control my-1" placeholder="EP value:">
+                    <input type="number" id="SFE" class="form-control my-1" placeholder="SFE value:">
+                    <input type="number" id="SPJ" class="form-control my-1" placeholder="SPJ modifier:">
+                    <input type="number" id="SPB" class="form-control my-1" placeholder="SPB modifier:">
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-success col-12" onclick="upload()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    <div  class="container bg-secondary">
+        <div class="row g-4 p-3 m-2" >             
+            <h1 class="text-center text-white">Characters</h1>
+            <button id="upload" class="p-2 g-2 btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                <i class="bi bi-plus-circle"></i>
+                Create Character 
+            </button>
+            <div class="d-flex justify-content-center row g-4 p-3 m-2" id="characters">
+            </div>			       
+        </div>
+        <div class="row g-4 p-3 m-2">
+            <button id="betolt" class="justify-content-center p-2 g-2 btn btn-danger btn-lg m-2">To Battle!! </button>
         </div>        
     </div>                
 

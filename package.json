@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap-icons": "^1.10.3",
     "jason-server": "^3.0.0",
     "json-server": "^0.17.2"
   }
