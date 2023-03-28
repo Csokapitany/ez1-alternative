@@ -66,7 +66,11 @@ function getCharacters(){
     })
 };
 
+function loadAvatars(){
+    console.log('anyad');
+}
 
+// to upload character
 function upload(){
     var charName = document.getElementById('name').value;
     var charClass = document.getElementById('class').value;
@@ -99,21 +103,22 @@ function upload(){
         if(response.status == 200){
             // alert("Character upload successful!");
             clearCharacters();
+            clearInputFields();
         }
     }).then(function() {
-        getCharacters();       
+        getCharacters();
     }).catch(error => {
         console.error(error)
     });
+
+
 
     var myModalEl = document.getElementById('exampleModal1');
     var modal = bootstrap.Modal.getInstance(myModalEl)
     modal.hide();  
 
+    
 }
-
-
-
 
 var cardsToFight = [];
 
@@ -134,6 +139,12 @@ function deleteCharacter(id){
 
     fetch(`https://practicefullstackapp.azurewebsites.net/characters/${id}`, {
         method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type':'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'accept': '*/*'
+          },
     }).then((response) => {
         if(response.status == 200){
             clearCharacters();
@@ -150,6 +161,33 @@ function deleteCharacter(id){
 function clearCharacters(){
     var characters = document.getElementById('characters');
     characters.innerHTML = "";
+}
+
+function clearInputFields(){
+    var charName = document.getElementById('name');
+    charName.value = '';
+    var charClass = document.getElementById('class');
+    charClass.value = '';
+    var image = document.getElementById('image');
+    image.value = '';
+    var level = document.getElementById('level');
+    level.value = '';
+    var ke = document.getElementById('KE');
+    ke.value = '';
+    var te = document.getElementById('TE');
+    te.value = '';
+    var ve = document.getElementById('VE');
+    ve.value = '';
+    var fp = document.getElementById('FP');
+    fp.value = '';
+    var ep = document.getElementById('EP');
+    ep.value = '';
+    var sfe = document.getElementById('SFE');
+    sfe.value = '';
+    var spj = document.getElementById('SPJ');
+    spj.value = '';
+    var spb = document.getElementById('SPB');
+    spb.value = '';    
 }
 
 // to transfer selected cards to battle
