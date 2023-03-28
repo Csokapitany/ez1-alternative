@@ -23,7 +23,9 @@ class Character {
 //to get data from API 
 function getCharacters(){
     fetch(`https://practicefullstackapp.azurewebsites.net/characters`)
-        .then( response => response.json() )
+        .then( response => 
+            response.json() 
+        )
         .then((data) => {
            console.log(data)
             
@@ -32,7 +34,7 @@ function getCharacters(){
     
                 div.innerHTML = (`
                     <div> 
-                        <div class="card text-center text-dark p-3 d-flex justify-content-center rounded-bottom-0 border border-dark border-3 border-bottom-0" onclick="select(${element.id})" id="${element.id}" ">
+                        <div class="card text-center text-dark p-3 d-flex justify-content-start rounded-bottom-0 border border-dark border-1 border-bottom-0" onclick="select(${element.id})" id="${element.id}" ">
                             <div class="m-2">                                           
                                 <img class="avatar" src="${element.image}">
                             </div>  
@@ -48,7 +50,7 @@ function getCharacters(){
                             <p> SPJ: ${element.spj}</p>
                             <p> SPB: ${element.spb}</p>                                                                                                                                    
                             </div>
-                            <button class="btn btn-danger col-12 rounded-top-0 border border-dark border-3 border-top-0" onclick=deleteCharacter(${element.id})>
+                            <button class="btn btn-danger col-12 rounded-top-0 border border-dark border-1 border-top-0" onclick=deleteCharacter(${element.id})>
                                 <i class="bi-trash3" style="color: white; "></i>
                                 Delete
                             </button>
@@ -95,8 +97,11 @@ function upload(){
         body: JSON.stringify( character )
     }).then(function(response) {
         if(response.status == 200){
-            alert("Character upload successful!");
+            // alert("Character upload successful!");
+            clearCharacters();
         }
+    }).then(function() {
+        getCharacters();       
     }).catch(error => {
         console.error(error)
     });
@@ -105,8 +110,6 @@ function upload(){
     var modal = bootstrap.Modal.getInstance(myModalEl)
     modal.hide();  
 
-    clearCharacters();
-    getCharacters();
 }
 
 
@@ -115,8 +118,6 @@ function upload(){
 var cardsToFight = [];
 
 function select(id){
-    // console.log(id);
-    
     var card = document.getElementById(`${id}`);
     
     card.classList.toggle("bg-success");
@@ -126,8 +127,6 @@ function select(id){
     } else {
         cardsToFight.push(id);
     }
-
-    // console.log(cardsToFight);
 }
             
 function deleteCharacter(id){
@@ -135,23 +134,17 @@ function deleteCharacter(id){
 
     fetch(`https://practicefullstackapp.azurewebsites.net/characters/${id}`, {
         method: 'DELETE',
-        // headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type':'application/json; charset=utf-8',
-        //     'Access-Control-Allow-Origin': '*',
-        //     'accept': '*/*'
-        //   },
-        // body: JSON.stringify( character )
     }).then((response) => {
         if(response.status == 200){
-            alert("Character deleted!");
+            clearCharacters();
         }
+    })
+    .then(() => {
+        getCharacters();        
     }).catch((error) => {
         console.error(error)
     });
 
-    clearCharacters();
-    getCharacters();
 }
 
 function clearCharacters(){
