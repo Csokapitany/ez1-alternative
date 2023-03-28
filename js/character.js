@@ -66,8 +66,14 @@ function getCharacters(){
     })
 };
 
+// to be implemented
 function loadAvatars(){
     console.log('anyad');
+}
+
+function setAvatarValue(id){
+    var image = document.getElementById('image');
+    image.value = id;    
 }
 
 // to upload character
