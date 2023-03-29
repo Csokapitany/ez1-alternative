@@ -2,7 +2,7 @@ body {
     /* background-image: linear-gradient(red, yellow); */
     background-image: url("/img/jeremy-cai-ucYWe5mzTMU-unsplash.jpg");
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
     background-position: top;
 }
 
