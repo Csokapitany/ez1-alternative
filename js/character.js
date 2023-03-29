@@ -27,8 +27,7 @@ function getCharacters(){
             response.json() 
         )
         .then((data) => {
-           console.log(data)
-            
+            hideSpinner()
             data.forEach(element => {
                 let div = document.createElement('div');
     
@@ -66,11 +65,33 @@ function getCharacters(){
     })
 };
 
-// to be implemented
+// load avatars to list 
 function loadAvatars(){
-    console.log('anyad');
-}
+    // console.log('anyad');
+    fetch(`https://practicefullstackapp.azurewebsites.net/avatars`)
+        .then( response => 
+            response.json() 
+        )
+        .then((data) => {
+            console.log(data)
+                data.forEach(avatar => {
+                let li = document.createElement('li');
+        
+                li.innerHTML = (`
+                    <img class="m-2 avatarSelect" src="${avatar.image}" alt="" id="AV_${avatar.id}" onclick="setAvatarValue(${avatar.id})">         
+                `);
+            
+                li.classList.add("d-flex");        
+                li.classList.add("justify-content-center");        
+            
+                let avatarWrapper = document.getElementById('avatarWrapper');
+                    
+                avatarWrapper.appendChild(li);        
+        })
+    })
+};
 
+// adds avatar value to input
 function setAvatarValue(id){
     var image = document.getElementById('image');
     image.value = id;    
@@ -108,10 +129,11 @@ function upload(){
     }).then(function(response) {
         if(response.status == 200){
             // alert("Character upload successful!");
-            clearCharacters();
+            // clearCharacters();
             clearInputFields();
         }
     }).then(function() {
+        clearCharacters();
         getCharacters();
     }).catch(error => {
         console.error(error)
@@ -164,6 +186,7 @@ function deleteCharacter(id){
 
 }
 
+// clears character wrapper
 function clearCharacters(){
     var characters = document.getElementById('characters');
     characters.innerHTML = "";
@@ -194,6 +217,11 @@ function clearInputFields(){
     spj.value = '';
     var spb = document.getElementById('SPB');
     spb.value = '';    
+}
+
+function hideSpinner(){
+    var spinner = document.getElementById('spinner');
+    spinner.style.display = "none";
 }
 
 // to transfer selected cards to battle
