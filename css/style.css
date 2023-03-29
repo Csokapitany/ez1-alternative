@@ -33,3 +33,9 @@ p {
     position: relative;
     z-index: -5;
 } */
+#fightContainer {
+    border: 1px solid black;
+    backdrop-filter: blur(15px);
+    position: relative;
+    z-index: -5;
+}

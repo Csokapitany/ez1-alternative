@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark bg-clip-padding">
         <div class="container">
-            <a href="index.html" class="navbar-brand p-3">Csata!!!</a>
+            <a href="index.html" class="navbar-brand p-3">Home</a>
                 <button class="navbar-toggler" 
                         type="button" 
                         data-bs-toggle="collapse" 
@@ -23,33 +23,38 @@
 
              <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
-                   <li class="nav-link">
+                   <!-- <li class="nav-link">
                     <a href="index.html" class="nav-link text-warning">Dobasok</a>
-                   </li>     
+                   </li>  -->   
                    <li class="nav-link">
-                   <a href="character.html" class="nav-link" >Karaktervalaszto</a>
-                   </li>
+                   <a href="character.html" class="nav-link" >Characters</a>
+                   </li> 
+                   <!--
                    <li class="nav-link">
                     <a href="upload.html" class="nav-link" >Feltolt</a>
-                    </li>     
+                    </li>      -->
 	            </ul>
             </div>
         </div>
     </nav>
 
     <!-- ez csak teszt jelleggel van itt torolheto -->
-    <p id="dynamic-content1"></p>
-    <p id="dynamic-content2"></p>
+    <!-- <p id="dynamic-content1"></p>
+    <p id="dynamic-content2"></p> -->
    
 
     <!-- ide jon bele a dinamikus kartya -->
-    <div class="container bg-secondary">			         
-        <div id="wrapper" class="row p-5 m-3 d-flex justify-content-between">
-                <div id="cardholder1" class="col-5 mx-3"></div>       
-                <div id="cardholder2" class="col-5 mx-3"></div>       
+    <div class="container p-3 mt-5" id="fightContainer">			         
+        <div id="wrapper" class="row p-3 m-3 d-flex  text-center justify-content-center">
+                <h1 class="mb-5 text-danger">Welcome to HELL!!!</h1>
+                <div id="cardholder1" class="col-4 mx-3"></div>       
+                <div class="col-2 mx-3">
+                    <h1 class="my-5 text-danger">vs</h1>
+                </div>
+                <div id="cardholder2" class="col-4 mx-3"></div>       
         </div>
-        <div class="d-grid gap-2">
-            <button class="btn btn-warning btl-lg m-3 fs-3 fw-bold" type="button" onclick="battle()">Fight</button>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-warning btl-lg m-3 fs-3 fw-bold col-5" type="button" onclick="battle()">Fight</button>
         </div>
     </div>
 
