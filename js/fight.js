@@ -19,10 +19,10 @@ function getPosts(id, position){
                     <div class="m-2">                                           
                         <img class="avatar" src="${data.image}">
                     </div>  
-                    <h2>${data.name}</h2>                         
+                    <h2 id="char-NAME">${data.name}</h2>                         
                     <h4> ${data.class}</h4p>
                     <h4> Szint: ${data.level}</h4>
-                    <p> KE: ${data.ke}</p>
+                    <p id="char-KE"> KE: ${data.ke}</p>
                     <p> TE: ${data.te}</p>
                     <p> VE: ${data.ve}</p>
                     <p class="changeable"> FP: ${data.fp}</p>
@@ -92,8 +92,75 @@ function setChangeableValues(myArr){
     changeable6.textContent = myArr[5];
 };
 
-function battle(){
-    // ez igy nem lesz jo :)
-    getChangeableValues();
-    console.log(myArr);
+// ez kockadobo funkcio
+function diceRoll(numberOfFaces){
+    let diceRoll = Math.floor(Math.random() * numberOfFaces) + 1;
+    // console.log(diceRoll);
+    return diceRoll;
 }
+
+// aktualis dobas ertek mutato szoveg
+function setCurrentRollAmount(rollNr, Value){
+    let currentRollAmount = document.getElementById(`diceroll-${rollNr}`);
+    currentRollAmount.textContent = Value;
+};
+
+// karakternev kiszedo
+function getCharacterNames(){
+    let characterNames = document.querySelectorAll("#char-NAME");
+    return characterNames;
+}
+
+// eldonti hogy ki kezd
+function decideWhoStarts(){
+    let bothKE = document.querySelectorAll("#char-KE");
+
+    let roll1 = diceRoll(10);
+    let roll2 = diceRoll(10);
+   
+    let KE1 = bothKE[0] = parseInt(bothKE[0].innerHTML.split(":")[1].slice(1)) + roll1;
+    let KE2 = bothKE[1] = parseInt(bothKE[1].innerHTML.split(":")[1].slice(1)) + roll2;
+
+    setCurrentRollAmount(1, roll1);
+    setCurrentRollAmount(2, roll2);
+
+    let names = getCharacterNames();
+
+    if(KE1 > KE2){
+        let notification = document.getElementById("current-round-noticifation");
+        notification.textContent =  names[0].innerHTML + "'s turn! ";
+    } else {
+        let notification = document.getElementById("current-round-noticifation");
+        notification.textContent =  names[1].innerHTML +  "'s turn!";
+    }
+}
+
+// harcmezo tisztito 
+function clearBattleField(){
+    document.getElementById("current-round-noticifation").textContent = "";
+    document.getElementById("round-finished").classList.add("visually-hidden");
+    document.getElementById("diceroll-1").textContent = "";
+    document.getElementById("diceroll-2").textContent = "";
+}
+
+// harc indito
+function setBattlefield(){
+    document.getElementById("battle-control-buttons").classList.remove("visually-hidden");
+    document.getElementById("round-finished").classList.remove("visually-hidden");
+    document.getElementById("fight-button").classList.add("visually-hidden");
+};
+
+function battle(){    
+    setBattlefield();
+
+    decideWhoStarts();
+}
+
+function nextRound(){
+    console.log("next round");
+    clearBattleField();
+};
+
+function runAway(){ 
+    console.log("run away");
+};    
