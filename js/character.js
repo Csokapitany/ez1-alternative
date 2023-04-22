@@ -114,9 +114,6 @@ function upload(){
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
     
-    
-    // kibaszott CORS error termeszetesen
-
     fetch('https://practicefullstackapp.azurewebsites.net/characters', {
         method: 'POST',
         headers: {
@@ -128,8 +125,7 @@ function upload(){
         body: JSON.stringify( character )
     }).then(function(response) {
         if(response.status == 200){
-            // alert("Character upload successful!");
-            // clearCharacters();
+            clearCharacters();
             clearInputFields();
         }
     }).then(function() {

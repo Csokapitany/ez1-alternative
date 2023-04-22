@@ -35,15 +35,10 @@ p {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);    
 }
 
-/* ezt probald ki ha ugy van :) */
-/* #mainContainer {
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: -5;
-} */
 #fightContainer {
     border: 1px solid black;
     backdrop-filter: blur(15px);
     position: relative;
-    z-index: -5;
+    z-index: 5;
 }
+
