@@ -150,7 +150,7 @@ function setBattlefield(){
     document.getElementById("fight-button").classList.add("visually-hidden");
 };
 
-function battle(){    
+function startBattle(){    
     setBattlefield();
 
     decideWhoStarts();
