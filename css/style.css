@@ -42,3 +42,8 @@ p {
     z-index: 5;
 }
 
+.bi-dice-6:hover{
+    transform: scale(1.8);
+    color: green;
+}
+

@@ -215,6 +215,11 @@ function clearInputFields(){
     spb.value = '';    
 }
 
+function generateValue(field){
+    // itt fogjuk az ertekeket generálni
+    console.log(`this is the new KE value: ${field}`);
+}
+
 function hideSpinner(){
     var spinner = document.getElementById('spinner');
     spinner.style.display = "none";
