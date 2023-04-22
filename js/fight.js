@@ -15,7 +15,7 @@ function getPosts(id, position){
             let div = document.createElement('div');
 
             div.innerHTML = (`
-                <div class="card text-center text-dark p-3 d-flex justify-content-center" onclick="select(${data.id})" id="${data.id}" ">
+                <div class="card text-center text-dark d-flex justify-content-center" onclick="select(${data.id})" id="${data.id}" ">
                     <div class="m-2">                                           
                         <img class="avatar" src="${data.image}">
                     </div>  
