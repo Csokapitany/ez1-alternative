@@ -114,34 +114,39 @@ function upload(){
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
     
-    fetch('https://practicefullstackapp.azurewebsites.net/characters', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type':'application/json; charset=utf-8',
-            'Access-Control-Allow-Origin': '*',
-            'accept': '*/*'
-          },
-        body: JSON.stringify( character )
-    }).then(function(response) {
-        if(response.status == 200){
-            clearCharacters();
-            clearInputFields();
-        }
-    }).then(function() {
-        clearCharacters();
-        getCharacters();
-    }).catch(error => {
-        console.error(error)
-    });
-
-
-
-    var myModalEl = document.getElementById('exampleModal1');
-    var modal = bootstrap.Modal.getInstance(myModalEl)
-    modal.hide();  
-
     
+
+    if(validateForm(character) == true){
+        fetch('https://practicefullstackapp.azurewebsites.net/characters', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type':'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': '*',
+                'accept': '*/*'
+              },
+            body: JSON.stringify( character )
+        }).then(function(response) {
+            if(response.status == 200){
+                clearCharacters();
+                clearInputFields();
+            }
+        }).then(function() {
+            clearCharacters();
+            getCharacters();
+        }).catch(error => {
+            console.error(error)
+        });
+    
+    
+    
+        var myModalEl = document.getElementById('exampleModal1');
+        var modal = bootstrap.Modal.getInstance(myModalEl)
+        modal.hide();   
+    } else {
+        document.getElementById('fields-error-message').classList.remove('visually-hidden');
+    }
+
 }
 
 var cardsToFight = [];
@@ -188,6 +193,23 @@ function clearCharacters(){
     characters.innerHTML = "";
 }
 
+// ez kockadobo funkcio
+function diceRoll(numberOfFaces){
+    let diceRoll = Math.floor(Math.random() * numberOfFaces) + 1;
+    // console.log(diceRoll);
+    return diceRoll;
+}
+
+// form validator
+function validateForm(character){
+    if(character.name == '' || character.class == '' || character.image == '' || character.level == '' || character.ke == '' || character.te == '' || character.ve == '' || character.fp == '' || character.ep == '' || character.sfe == '' || character.spj == '' || character.spb == ''){
+        return false;
+    } else {
+        return true;
+    }
+};
+
+// ez a karakter krealas utan visszaaliitja a form ertekeit ures stringre
 function clearInputFields(){
     var charName = document.getElementById('name');
     charName.value = '';
@@ -212,12 +234,41 @@ function clearInputFields(){
     var spj = document.getElementById('SPJ');
     spj.value = '';
     var spb = document.getElementById('SPB');
-    spb.value = '';    
+    spb.value = '';
+    document.getElementById('fields-error-message').classList.add('visually-hidden');    
 }
 
+// ez dobokockak randomszm generalo fuggvenye
 function generateValue(field){
     // itt fogjuk az ertekeket generálni
-    console.log(`this is the new KE value: ${field}`);
+    switch(field) {
+        case 1:
+            document.getElementById('KE').value = diceRoll(10);
+            break;
+        case 2:
+            document.getElementById('TE').value = diceRoll(10);
+            break;
+        case 3:
+            document.getElementById('VE').value = diceRoll(10);
+            break;
+        case 4:
+            document.getElementById('FP').value = diceRoll(10);
+            break;
+        case 5:
+            document.getElementById('EP').value = diceRoll(10);
+            break;
+        case 6:
+            document.getElementById('SFE').value = diceRoll(10);
+            break;
+        case 7:
+            document.getElementById('SPJ').value = diceRoll(10);
+            break;
+        case 8:
+            document.getElementById('SPB').value = diceRoll(10);
+            break;
+        default:
+            console.log("error");
+      }
 }
 
 function hideSpinner(){

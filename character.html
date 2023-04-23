@@ -68,36 +68,39 @@
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="TE" class="form-control" placeholder="TE value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon2" onclick="generateValue(2)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="VE" class="form-control" placeholder="VE value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon3" onclick="generateValue(3)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="FP" class="form-control" placeholder="FP value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon4" onclick="generateValue(4)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="EP" class="form-control" placeholder="EP value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon5" onclick="generateValue(5)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="SFE" class="form-control" placeholder="SFE value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon6" onclick="generateValue(6)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="SPJ" class="form-control" placeholder="SPJ value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon7" onclick="generateValue(7)"><i class="bi bi-dice-6 "></i></span>
                     </div>
                     <div class="input-group my-2">
                       <input type="number" id="SPB" class="form-control" placeholder="SPB value:">
-                      <span class="input-group-text dice" id="basic-addon1"><i class="bi bi-dice-6 "></i></span>
+                      <span class="input-group-text dice" id="basic-addon8" onclick="generateValue(8)"><i class="bi bi-dice-6 "></i></span>
+                    </div>
+                    <div id="fields-error-message" class="text-danger mt-3 text-center fw-bold visually-hidden">
+                      Please Fill in all the fileds!
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-success col-12" onclick="upload()">Upload Character</button>
+                    <button type="button" class="btn btn-success col-12" onclick="upload()" >Upload Character</button>
             </div>
           </div>
         </div>
