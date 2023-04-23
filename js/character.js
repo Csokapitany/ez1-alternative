@@ -73,20 +73,19 @@ function loadAvatars(){
             response.json() 
         )
         .then((data) => {
-            console.log(data)
-                data.forEach(avatar => {
-                let li = document.createElement('li');
+            data.forEach(avatar => {
+            let li = document.createElement('li');
+    
+            li.innerHTML = (`
+                <img class="m-2 avatarSelect" src="${avatar.image}" alt="" id="AV_${avatar.id}" onclick="setAvatarValue(${avatar.id})">         
+            `);
         
-                li.innerHTML = (`
-                    <img class="m-2 avatarSelect" src="${avatar.image}" alt="" id="AV_${avatar.id}" onclick="setAvatarValue(${avatar.id})">         
-                `);
-            
-                li.classList.add("d-flex");        
-                li.classList.add("justify-content-center");        
-            
-                let avatarWrapper = document.getElementById('avatarWrapper');
-                    
-                avatarWrapper.appendChild(li);        
+            li.classList.add("d-flex");        
+            li.classList.add("justify-content-center");        
+        
+            let avatarWrapper = document.getElementById('avatarWrapper');
+                
+            avatarWrapper.appendChild(li);        
         })
     })
 };
@@ -114,8 +113,8 @@ function upload(){
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
     
+    transformCharacter(character);
     
-
     if(validateForm(character) == true){
         fetch('https://practicefullstackapp.azurewebsites.net/characters', {
             method: 'POST',
@@ -138,19 +137,24 @@ function upload(){
             console.error(error)
         });
     
-    
-    
         var myModalEl = document.getElementById('exampleModal1');
         var modal = bootstrap.Modal.getInstance(myModalEl)
         modal.hide();   
-    } else {
-        document.getElementById('fields-error-message').classList.remove('visually-hidden');
+    } else {    
+        let id = 'fields-error-message';
+
+        showErrorMessage(id);
+
+        setTimeout(() => {
+            hideErrorMessage(id);
+        }, 1000);
     }
 
 }
 
 var cardsToFight = [];
 
+// to select cards
 function select(id){
     var card = document.getElementById(`${id}`);
     
@@ -162,9 +166,10 @@ function select(id){
         cardsToFight.push(id);
     }
 }
-            
+
+// to delete character
 function deleteCharacter(id){
-    console.log(id)
+    // console.log(id)
 
     fetch(`https://practicefullstackapp.azurewebsites.net/characters/${id}`, {
         method: 'DELETE',
@@ -202,7 +207,8 @@ function diceRoll(numberOfFaces){
 
 // form validator
 function validateForm(character){
-    if(character.name == '' || character.class == '' || character.image == '' || character.level == '' || character.ke == '' || character.te == '' || character.ve == '' || character.fp == '' || character.ep == '' || character.sfe == '' || character.spj == '' || character.spb == ''){
+    // console.log(character);
+    if(character.name == '' || character.class == '' || character.image == '' || character.level == 0 || character.ke == 0 || character.te == 0 || character.ve == 0 || character.fp == 0 || character.ep == 0 || character.sfe == 0 || character.spj == 0 || character.spb == 0){
         return false;
     } else {
         return true;
@@ -271,6 +277,49 @@ function generateValue(field){
       }
 }
 
+//transforms character Nan values to 0
+
+function transformCharacter(character){
+    if(isNaN(character.level)){
+        character.level = 0;
+    }
+    if(isNaN(character.ke)){
+        character.ke = 0;
+    }
+    if(isNaN(character.te)){
+        character.te = 0;
+    }
+    if(isNaN(character.ve)){
+        character.ve = 0;
+    }
+    if(isNaN(character.fp)){
+        character.fp = 0;
+    }
+    if(isNaN(character.ep)){
+        character.ep = 0;
+    }
+    if(isNaN(character.sfe)){
+        character.sfe = 0;
+    }
+    if(isNaN(character.spj)){
+        character.spj = 0;
+    }
+    if(isNaN(character.spb)){
+        character.spb = 0;
+    }
+}
+
+//shows the error message
+function showErrorMessage(id){
+    document.getElementById(id).classList.remove('visually-hidden');
+} 
+
+//hides the error message
+function hideErrorMessage(id){
+    document.getElementById(id).classList.add('visually-hidden');
+} 
+
+// loading spinner hider
 function hideSpinner(){
     var spinner = document.getElementById('spinner');
     spinner.style.display = "none";
