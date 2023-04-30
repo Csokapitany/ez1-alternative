@@ -113,7 +113,10 @@ function upload(){
 
     var character = new Character(charName,charClass, image, level, ke, te, ve, fp, ep, sfe, spj, spb);
     
+    
     transformCharacter(character);
+
+    console.log(character);
     
     if(validateForm(character) == true){
         fetch('https://practicefullstackapp.azurewebsites.net/characters', {

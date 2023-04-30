@@ -93,8 +93,8 @@
                             <div id="roll2" class="col-3 text-center display-6 my-5">Roll: <span id="diceroll-2" class="display-6 fw-bold"></span></div>
                         </div>
                         <div id="battle-control-buttons" class="d-flex justify-content-center visually-hidden" >
-                            <button class="btn btn-success m-1" onclick="nextRound()">Next Round!!</button>
-                            <button class="btn btn-danger m-1" onclick="runAway()">Run Away!!</button>
+                            <button class="btn btn-success m-1" onclick="nextRound(playerOne(), playerTwo(), turnOfPlayer)">Next Round!!</button>
+                            <button class="btn btn-danger m-1" onclick="runAway(turnOfPlayer)">Run Away!!</button>
                         </div>
                     </div>
                 </div>
