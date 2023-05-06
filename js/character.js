@@ -40,14 +40,14 @@ function getCharacters(){
                             <h2>${element.name}</h2>                         
                             <h4> ${element.class}</h4p>
                             <h4> Level: ${element.level}</h4>
-                            <p> KE: ${element.ke}</p>
-                            <p> TE: ${element.te}</p>
-                            <p> VE: ${element.ve}</p>
-                            <p> FP: ${element.fp}</p>
-                            <p> EP: ${element.ep}</p>
-                            <p> SFE: ${element.sfe}</p>
-                            <p> SPJ: ${element.spj}</p>
-                            <p> SPB: ${element.spb}</p>                                                                                                                                    
+                            <p> Initiator Value: ${element.ke}</p>
+                            <p> Attack Power: ${element.te}</p>
+                            <p> Defend Power: ${element.ve}</p>
+                            <p> Pain Endurance: ${element.fp}</p>
+                            <p> Health: ${element.ep}</p>
+                            <p> Armor: ${element.sfe}</p>
+                            <p> Damage Right: ${element.spj}</p>
+                            <p> Damage Left: ${element.spb}</p>                                                                                                                                    
                             </div>
                             <button class="btn btn-danger col-12 rounded-top-0 border border-dark border-1 border-top-0" onclick=deleteCharacter(${element.id})>
                                 <i class="bi-trash3" style="color: white; "></i>

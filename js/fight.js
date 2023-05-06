@@ -21,15 +21,15 @@ function getPosts(id, position){
                     </div>  
                     <h2 id="${position}">${data.name}</h2>                         
                     <h4> ${data.class}</h4p>
-                    <h4> Szint: ${data.level}</h4>
-                    <p id="char-KE"> KE: ${data.ke}</p>
-                    <p id="TE${position}">TE: ${data.te}</p>
-                    <p id="VE${position}"> VE: ${data.ve}</p>
-                    <p class="changeable"> FP: ${data.fp}</p>
-                    <p class="changeable"> EP: ${data.ep}</p>
-                    <p class="changeable"> SFE: ${data.sfe}</p>
-                    <p id="SPJ${position}"> SPJ: ${data.spj}</p>
-                    <p> SPB: ${data.spb}</p>                                                                                                                                    
+                    <h4> Level: ${data.level}</h4>
+                    <p id="char-KE"> Initiator Value: ${data.ke}</p>
+                    <p id="TE${position}">Attack Power: ${data.te}</p>
+                    <p id="VE${position}"> Defend Power: ${data.ve}</p>
+                    <p id="FP${position}" class="changeable"> Pain Endurance: ${data.fp}</p>
+                    <p id="EP${position}" class="changeable"> Health: ${data.ep}</p>
+                    <p id="SFE${position}"class="changeable"> Armor: ${data.sfe}</p>
+                    <p id="SPJ${position}"> Damage Right: ${data.spj}</p>
+                    <p> Damage Left: ${data.spb}</p>                                                                                                                                    
                 </div>
             `);
     
@@ -152,19 +152,21 @@ function clearBattleField(){
     document.getElementById("diceroll-2").textContent = "";
 }
 
-// harc indito
+// harcmezo beallito
 function setBattlefield(){
     document.getElementById("battle-control-buttons").classList.remove("visually-hidden");
     document.getElementById("round-finished").classList.remove("visually-hidden");
     document.getElementById("fight-button").classList.add("visually-hidden");
 };
 
+// harc induklasa
 function startBattle(){    
     setBattlefield();
 
     decideWhoStarts();
 }
 
+// egyes player erkeit kiszedo
 let playerOne = function getPlayerOne(){
     let ID1 = 1;
     let FP1 = parseInt(document.getElementById("changeable-0").innerText);
@@ -182,6 +184,8 @@ let playerOne = function getPlayerOne(){
 
     return playerOne;
 }
+
+// kettes player erkeit kiszedo
 let playerTwo = function getPlayerTwo(){
     let ID2 = 2;    
     let FP2 = parseInt(document.getElementById("changeable-3").innerText);
@@ -200,6 +204,8 @@ let playerTwo = function getPlayerTwo(){
     return playerTwo;
 }
 
+
+// egy kor a csataban
 function fightOneRound(attackingPlayer, defendingPlayer){
     console.log("Attackingplayer: " + attackingPlayer.id);
     console.log("DefendingPlayer: " + defendingPlayer.id);
@@ -215,9 +221,9 @@ function fightOneRound(attackingPlayer, defendingPlayer){
         setCurrentRollAmount(2, roll);
     }
 
-    if(attack > defend + 5){
+    if(attack > defend + 1){
         let damage = attackingPlayer.spj - (defendingPlayer.sfe - 1);
-        document.getElementById("current-round-noticifation").innerText = "Hit! EP Damage! " + damage;
+        document.getElementById("current-round-noticifation").innerText = "Hit! Health Damage! " + damage;
         let defendingEP = 0;
         
         if(defendingPlayer.id == 1){
@@ -231,9 +237,11 @@ function fightOneRound(attackingPlayer, defendingPlayer){
 
         if(defendingPlayer.id == 1){
             document.getElementById("changeable-1").innerText = currentEP;
+            updatePlayerCard(1, currentFP, currentEP);
         }
         if(defendingPlayer.id == 2){
             document.getElementById("changeable-3").innerText = currentEP;
+            updatePlayerCard(2, currentFP, currentEP);
         }
 
         // document.getElementById(`changeable-${defendingPlayer.id}`).innerText = currentEP;
@@ -244,7 +252,7 @@ function fightOneRound(attackingPlayer, defendingPlayer){
 
     } else if(attack > defend){
         let damage = attackingPlayer.spj - defendingPlayer.sfe;
-        document.getElementById("current-round-noticifation").innerText = "Hit! FP damage! " + damage;
+        document.getElementById("current-round-noticifation").innerText = "Hit! Pain Endurance damage! " + damage;
     } else {
         document.getElementById("current-round-noticifation").innerText = "No Hit!";
     }
@@ -256,6 +264,7 @@ function fightOneRound(attackingPlayer, defendingPlayer){
     // console.log("defend " + defend);
 };
 
+// kovetkezo kor a csataban
 function nextRound(playerOne, playerTwo, turnOfPlayer){
     console.log(turnOfPlayer);
     clearBattleField();
@@ -277,10 +286,18 @@ function nextRound(playerOne, playerTwo, turnOfPlayer){
     }    
 };
 
+function updatePlayerCard(id, fp, ep){
+    console.log("test")
+    document.getElementById(`FP${id}`).innerText = fp;
+    document.getElementById(`EP${id}`).innerText = ep;
+};
+
+// cssata befejezese
 function finishBattle(){
     console.log("Battle finished!");
 };
 
+// menekules
 function runAway(turnOfPlayer){ 
     let name = document.getElementById(`${turnOfPlayer}`).innerText;
     document.getElementById("current-round-noticifation").innerText = `${name} is running away!!!`;
